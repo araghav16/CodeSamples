@@ -12,7 +12,7 @@ class Stack{
 public:
       Stack();
       void push(void *data);
-      void *pop();
+      void pop();
       void print();
 
 protected:
@@ -41,14 +41,19 @@ void Stack::push(void *data)
   elm->data = data;
   elm->next = top;
   top = elm;
-
 };
 
 /**
 **  Pop item from top of stack
 **/
-void *Stack::pop()
+void Stack::pop()
 {
+  /* check stack is not empty,
+  ** take copy of the top, 
+  ** iterate stack,
+  ** print data and delete element
+  */
+
   Element *elm = new Element;
 
   //Check stack is not empty
@@ -56,20 +61,14 @@ void *Stack::pop()
   {
     elm = top;
     top = top->next;
+    int* intptr = static_cast<int*>(elm->data);
+    cout << "Pop item: " << *intptr << endl;
   }else
   {
-    return NULL;
+    cout << "Stack is Empty!"<< endl;
   }
 
-  int* intptr = static_cast<int*>(elm->data);
-  cout << "Pop item: " << *intptr << endl;
-
-  /* check stack is not empty,
-  ** take copy of the top, 
-  ** iterate stack,
-  ** return copy
-  */
-  return elm->data;
+  delete elm;
 };
 
 /**
@@ -77,7 +76,7 @@ void *Stack::pop()
 **/
 void Stack::print()
 {
-  Element *elm = new Element;
+  Element *elm;
   
   if( top != NULL)
   {
@@ -97,7 +96,6 @@ void Stack::print()
   {
     cout << "Stack is empty !\n" ;
   }
-
 };
 
 /*
@@ -109,7 +107,7 @@ class Queue{
 public:
    Queue();
    void  enqueue(void *data);
-   void *dequeue();
+   void  dequeue();
    void  print();
 private:
 
@@ -152,7 +150,7 @@ void Queue::enqueue(void *data)
 /* Dequeus and returns the first
 ** item on the queue.
 **/
-void *Queue::dequeue()
+void Queue::dequeue()
 {
   Element *elm = new Element();
 
@@ -172,7 +170,7 @@ void *Queue::dequeue()
         cout << "Dequeued item: " << *intptr <<endl;
   }
 
-  return elm;
+  delete elm;
 }
 
 
@@ -180,7 +178,7 @@ void *Queue::dequeue()
 **/
 void Queue::print()
 {
-  Element *elm = new Element();
+  Element *elm;
   elm = front;
 
   cout << "Queue: ";
